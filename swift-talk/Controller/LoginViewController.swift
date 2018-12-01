@@ -19,6 +19,8 @@ class LoginViewController: UIViewController {
         
     }
     
+
+    
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
@@ -27,8 +29,11 @@ class LoginViewController: UIViewController {
         
     }
     
+    @IBOutlet weak var name: UITextField!
     
+    @IBOutlet weak var password: UITextField!
     
+    @IBOutlet weak var email: UITextField!
     
 }
     
