@@ -7,6 +7,8 @@ target 'swift-talk' do
 
   # Pods for swift-talk
 pod 'Firebase/Core'
+pod 'Firebase/Database'
+pod 'Firebase/Auth'
   target 'swift-talkTests' do
     inherit! :search_paths
     # Pods for testing
