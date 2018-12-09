@@ -26,6 +26,9 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var email: UITextField!
     
+    @IBAction func backButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     @IBOutlet weak var password: UITextField!
     
     @IBAction func loginButton(_ sender: Any) {
