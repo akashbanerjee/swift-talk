@@ -49,6 +49,8 @@ class RegistrationViewController: UIViewController {
                 }
                 //user entered into database
                 print("User entered in database")
+                self.performSegue(withIdentifier: "messagesViewFromRegister", sender: self);
+                
             })
             
         }
