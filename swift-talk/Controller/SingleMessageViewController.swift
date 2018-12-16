@@ -17,12 +17,20 @@ class SingleMessageViewController: UIViewController ,UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
     }
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = users[indexPath.row].name
         cell.detailTextLabel?.text = users[indexPath.row].email
-        
+        let placeholder = UIImage(named: "icons8-user-50")
+        cell.imageView?.image = placeholder
+     
+        if let imageUrl = users[indexPath.row].image{
+            cell.imageView?.loadImageFromCache(urlString: imageUrl)
+        }
         return cell
     }
     

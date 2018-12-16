@@ -41,7 +41,7 @@ class RegistrationViewController: UIViewController {
             //user authenticated
             let ref = Database.database().reference(fromURL: "https://swift-talk.firebaseio.com/")
             let child = ref.child("users").child(uid)
-            let data = ["name": name, "email": email]
+            let data = ["name": name, "email": email, "image": ""]
             child.updateChildValues(data, withCompletionBlock: { (error, databaseReference) in
                 if error != nil {
                     print("error while writing in database")
