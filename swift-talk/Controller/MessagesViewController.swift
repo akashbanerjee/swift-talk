@@ -113,7 +113,7 @@ class MessagesViewController: UIViewController, UIImagePickerControllerDelegate,
         let child = Database.database().reference().child("users").child(uid!)
         
         
-        let pictureReference = Storage.storage().reference().child(uid!)
+        let pictureReference = Storage.storage().reference().child("profileImages").child(uid!)
         if let uploadImage = self.profilePicture.image!.pngData(){
             pictureReference.putData(uploadImage, metadata: nil) { (metadata, error) in
                 if error != nil {

@@ -14,6 +14,7 @@
 		12059A0021B317F500D63273 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 120599FE21B317F500D63273 /* LaunchScreen.storyboard */; };
 		12059A0B21B317F500D63273 /* swift_talkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12059A0A21B317F500D63273 /* swift_talkTests.swift */; };
 		12059A1621B317F500D63273 /* swift_talkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12059A1521B317F500D63273 /* swift_talkUITests.swift */; };
+		1266A67E21C7100900846400 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1266A67D21C7100900846400 /* Extensions.swift */; };
 		129A971421BC21DE00382B2F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129A971321BC21DE00382B2F /* LoginViewController.swift */; };
 		12A6673221C3727800FE3C15 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A6673121C3727800FE3C15 /* MessagesViewController.swift */; };
 		12A6673421C3902000FE3C15 /* SingleMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A6673321C3902000FE3C15 /* SingleMessageViewController.swift */; };
@@ -55,6 +56,7 @@
 		12059A1121B317F500D63273 /* swift-talkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "swift-talkUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		12059A1521B317F500D63273 /* swift_talkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swift_talkUITests.swift; sourceTree = "<group>"; };
 		12059A1721B317F500D63273 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1266A67D21C7100900846400 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		129A971321BC21DE00382B2F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		12A6673121C3727800FE3C15 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		12A6673321C3902000FE3C15 /* SingleMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMessageViewController.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 		120599F421B317F300D63273 /* swift-talk */ = {
 			isa = PBXGroup;
 			children = (
+				1266A67C21C70FE300846400 /* Helpers */,
 				12A6673521C5F85300FE3C15 /* Model */,
 				12BA7E1F21B3425D0072B231 /* GoogleService-Info.plist */,
 				12BA7E1C21B322340072B231 /* Controller */,
@@ -152,6 +155,14 @@
 				12059A1721B317F500D63273 /* Info.plist */,
 			);
 			path = "swift-talkUITests";
+			sourceTree = "<group>";
+		};
+		1266A67C21C70FE300846400 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				1266A67D21C7100900846400 /* Extensions.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		12A6673521C5F85300FE3C15 /* Model */ = {
@@ -435,6 +446,7 @@
 				12A6673421C3902000FE3C15 /* SingleMessageViewController.swift in Sources */,
 				12A6673221C3727800FE3C15 /* MessagesViewController.swift in Sources */,
 				120599F621B317F300D63273 /* AppDelegate.swift in Sources */,
+				1266A67E21C7100900846400 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
