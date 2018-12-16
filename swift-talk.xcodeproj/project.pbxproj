@@ -16,6 +16,8 @@
 		12059A1621B317F500D63273 /* swift_talkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12059A1521B317F500D63273 /* swift_talkUITests.swift */; };
 		129A971421BC21DE00382B2F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129A971321BC21DE00382B2F /* LoginViewController.swift */; };
 		12A6673221C3727800FE3C15 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A6673121C3727800FE3C15 /* MessagesViewController.swift */; };
+		12A6673421C3902000FE3C15 /* SingleMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A6673321C3902000FE3C15 /* SingleMessageViewController.swift */; };
+		12A6673721C5F86D00FE3C15 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A6673621C5F86D00FE3C15 /* User.swift */; };
 		12BA7E1E21B3225F0072B231 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BA7E1D21B3225F0072B231 /* RegistrationViewController.swift */; };
 		12BA7E2021B3425D0072B231 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12BA7E1F21B3425D0072B231 /* GoogleService-Info.plist */; };
 		56E0A2DB6F01F7F16054104B /* Pods_swift_talkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D91F9B383E920338558D842 /* Pods_swift_talkTests.framework */; };
@@ -55,6 +57,8 @@
 		12059A1721B317F500D63273 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		129A971321BC21DE00382B2F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		12A6673121C3727800FE3C15 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		12A6673321C3902000FE3C15 /* SingleMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMessageViewController.swift; sourceTree = "<group>"; };
+		12A6673621C5F86D00FE3C15 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		12BA7E1D21B3225F0072B231 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		12BA7E1F21B3425D0072B231 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		20C874AB2C12EA3EF1DFEDA3 /* Pods-swift-talkUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swift-talkUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-swift-talkUITests/Pods-swift-talkUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -120,6 +124,7 @@
 		120599F421B317F300D63273 /* swift-talk */ = {
 			isa = PBXGroup;
 			children = (
+				12A6673521C5F85300FE3C15 /* Model */,
 				12BA7E1F21B3425D0072B231 /* GoogleService-Info.plist */,
 				12BA7E1C21B322340072B231 /* Controller */,
 				120599F521B317F300D63273 /* AppDelegate.swift */,
@@ -149,12 +154,21 @@
 			path = "swift-talkUITests";
 			sourceTree = "<group>";
 		};
+		12A6673521C5F85300FE3C15 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				12A6673621C5F86D00FE3C15 /* User.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		12BA7E1C21B322340072B231 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				12BA7E1D21B3225F0072B231 /* RegistrationViewController.swift */,
 				129A971321BC21DE00382B2F /* LoginViewController.swift */,
 				12A6673121C3727800FE3C15 /* MessagesViewController.swift */,
+				12A6673321C3902000FE3C15 /* SingleMessageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -417,6 +431,8 @@
 			files = (
 				129A971421BC21DE00382B2F /* LoginViewController.swift in Sources */,
 				12BA7E1E21B3225F0072B231 /* RegistrationViewController.swift in Sources */,
+				12A6673721C5F86D00FE3C15 /* User.swift in Sources */,
+				12A6673421C3902000FE3C15 /* SingleMessageViewController.swift in Sources */,
 				12A6673221C3727800FE3C15 /* MessagesViewController.swift in Sources */,
 				120599F621B317F300D63273 /* AppDelegate.swift in Sources */,
 			);
