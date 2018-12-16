@@ -112,24 +112,17 @@
                                                 <action selector="logout:" destination="lcg-qt-6qp" id="tp1-Si-y16"/>
                                             </connections>
                                         </barButtonItem>
-                                        <rightBarButtonItems>
-                                            <barButtonItem title="New Message" image="icons8-chat-filled-40" id="3zk-Sp-yIg">
-                                                <connections>
-                                                    <action selector="newMessage:" destination="lcg-qt-6qp" id="3ZD-KC-vq7"/>
-                                                    <segue destination="OQC-t8-CJ4" kind="show" identifier="singleMessage" id="ZLw-4s-s1y"/>
-                                                </connections>
-                                            </barButtonItem>
-                                            <barButtonItem title="Profile Pic" id="ge7-do-JO4">
-                                                <connections>
-                                                    <action selector="uploadProfilePicture:" destination="lcg-qt-6qp" id="ra9-9j-gTT"/>
-                                                </connections>
-                                            </barButtonItem>
-                                        </rightBarButtonItems>
+                                        <barButtonItem key="rightBarButtonItem" title="New Message" image="icons8-chat-filled-40" id="3zk-Sp-yIg">
+                                            <connections>
+                                                <action selector="newMessage:" destination="lcg-qt-6qp" id="3ZD-KC-vq7"/>
+                                                <segue destination="OQC-t8-CJ4" kind="show" identifier="singleMessage" id="ZLw-4s-s1y"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YGT-oM-Xol">
-                                <rect key="frame" x="16" y="97" width="343" height="550"/>
+                                <rect key="frame" x="16" y="192" width="343" height="455"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="bEr-zT-5VP">
@@ -142,21 +135,31 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-user-50" translatesAutoresizingMaskIntoConstraints="NO" id="g19-cv-1vG">
+                                <rect key="frame" x="136" y="100" width="103" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="w8g-bV-25n"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Sou-eU-60U" firstAttribute="trailing" secondItem="YGT-oM-Xol" secondAttribute="trailing" constant="16" id="5nR-42-MSC"/>
+                            <constraint firstItem="Sou-eU-60U" firstAttribute="trailing" secondItem="YGT-oM-Xol" secondAttribute="trailing" constant="16" id="4cS-Kj-QOZ"/>
+                            <constraint firstItem="Sou-eU-60U" firstAttribute="bottom" secondItem="YGT-oM-Xol" secondAttribute="bottom" constant="20" id="6ij-zr-j8e"/>
+                            <constraint firstItem="g19-cv-1vG" firstAttribute="top" secondItem="Djp-uv-WIu" secondAttribute="bottom" constant="20" id="9X9-vN-hKH"/>
                             <constraint firstItem="Djp-uv-WIu" firstAttribute="leading" secondItem="Sou-eU-60U" secondAttribute="leading" id="BkN-Qe-fSV"/>
-                            <constraint firstItem="YGT-oM-Xol" firstAttribute="leading" secondItem="Sou-eU-60U" secondAttribute="leading" constant="16" id="Em2-pv-Er2"/>
                             <constraint firstItem="Djp-uv-WIu" firstAttribute="top" secondItem="Sou-eU-60U" secondAttribute="top" constant="16" id="G9T-La-tsj"/>
-                            <constraint firstItem="YGT-oM-Xol" firstAttribute="top" secondItem="Djp-uv-WIu" secondAttribute="bottom" constant="17" id="S9o-xj-uWe"/>
+                            <constraint firstItem="YGT-oM-Xol" firstAttribute="top" secondItem="g19-cv-1vG" secondAttribute="bottom" constant="28" id="K31-vo-PMK"/>
                             <constraint firstItem="Djp-uv-WIu" firstAttribute="trailing" secondItem="Sou-eU-60U" secondAttribute="trailing" id="Uao-1Y-sbI"/>
-                            <constraint firstItem="Sou-eU-60U" firstAttribute="bottom" secondItem="YGT-oM-Xol" secondAttribute="bottom" constant="20" id="oLD-di-6hz"/>
+                            <constraint firstItem="g19-cv-1vG" firstAttribute="leading" secondItem="Sou-eU-60U" secondAttribute="leading" constant="136" id="bjz-TP-J8e"/>
+                            <constraint firstItem="YGT-oM-Xol" firstAttribute="leading" secondItem="Sou-eU-60U" secondAttribute="leading" constant="16" id="cJc-QC-qKE"/>
+                            <constraint firstItem="g19-cv-1vG" firstAttribute="centerX" secondItem="Djp-uv-WIu" secondAttribute="centerX" id="yxc-Uk-woG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Sou-eU-60U"/>
                     </view>
                     <connections>
                         <outlet property="messageTitle" destination="FIM-gO-cLD" id="brk-rx-b24"/>
+                        <outlet property="profilePicture" destination="g19-cv-1vG" id="xme-hs-Azn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iZY-Kz-RoY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -284,6 +287,7 @@
     <resources>
         <image name="Fotolia_30732541_XS" width="400" height="300"/>
         <image name="icons8-chat-filled-40" width="30" height="30"/>
+        <image name="icons8-user-50" width="37.5" height="37.5"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="fGg-vW-iL5"/>
