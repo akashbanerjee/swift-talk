@@ -26,16 +26,21 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var email: UITextField!
     
+    @IBAction func backButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     @IBOutlet weak var password: UITextField!
     
     @IBAction func loginButton(_ sender: Any) {
         guard let email = email.text, let password = password.text else { return }
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error != nil {
-                print("error while authenticated")
+                print(error)
                 return
             }
             print("Logged in")
+            self.performSegue(withIdentifier: "messagesView", sender: self);
+            
         }
     }
     @IBOutlet weak var login: UIButton!
