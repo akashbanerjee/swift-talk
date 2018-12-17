@@ -39,7 +39,7 @@ class RegistrationViewController: UIViewController {
             print("user authenticated")
             guard let uid = user?.user.uid else { return }
             //user authenticated
-            let ref = Database.database().reference(fromURL: "https://swift-talk.firebaseio.com/")
+            let ref = Database.database().reference()
             let child = ref.child("users").child(uid)
             let data = ["name": name, "email": email, "image": ""]
             child.updateChildValues(data, withCompletionBlock: { (error, databaseReference) in

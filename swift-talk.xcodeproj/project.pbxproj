@@ -15,6 +15,8 @@
 		12059A0B21B317F500D63273 /* swift_talkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12059A0A21B317F500D63273 /* swift_talkTests.swift */; };
 		12059A1621B317F500D63273 /* swift_talkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12059A1521B317F500D63273 /* swift_talkUITests.swift */; };
 		1266A67E21C7100900846400 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1266A67D21C7100900846400 /* Extensions.swift */; };
+		1266A68021C719DF00846400 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1266A67F21C719DF00846400 /* ChatViewController.swift */; };
+		1266A68221C7516300846400 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1266A68121C7516300846400 /* Message.swift */; };
 		129A971421BC21DE00382B2F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129A971321BC21DE00382B2F /* LoginViewController.swift */; };
 		12A6673221C3727800FE3C15 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A6673121C3727800FE3C15 /* MessagesViewController.swift */; };
 		12A6673421C3902000FE3C15 /* SingleMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A6673321C3902000FE3C15 /* SingleMessageViewController.swift */; };
@@ -57,6 +59,8 @@
 		12059A1521B317F500D63273 /* swift_talkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swift_talkUITests.swift; sourceTree = "<group>"; };
 		12059A1721B317F500D63273 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1266A67D21C7100900846400 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		1266A67F21C719DF00846400 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		1266A68121C7516300846400 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		129A971321BC21DE00382B2F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		12A6673121C3727800FE3C15 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		12A6673321C3902000FE3C15 /* SingleMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMessageViewController.swift; sourceTree = "<group>"; };
@@ -169,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				12A6673621C5F86D00FE3C15 /* User.swift */,
+				1266A68121C7516300846400 /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -180,6 +185,7 @@
 				129A971321BC21DE00382B2F /* LoginViewController.swift */,
 				12A6673121C3727800FE3C15 /* MessagesViewController.swift */,
 				12A6673321C3902000FE3C15 /* SingleMessageViewController.swift */,
+				1266A67F21C719DF00846400 /* ChatViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -350,6 +356,10 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-swift-talk/Pods-swift-talk-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/MessageInputBar/MessageInputBar.framework",
+				"${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Scaledrone/Scaledrone.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -359,6 +369,10 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageInputBar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Scaledrone.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -442,6 +456,8 @@
 			files = (
 				129A971421BC21DE00382B2F /* LoginViewController.swift in Sources */,
 				12BA7E1E21B3225F0072B231 /* RegistrationViewController.swift in Sources */,
+				1266A68021C719DF00846400 /* ChatViewController.swift in Sources */,
+				1266A68221C7516300846400 /* Message.swift in Sources */,
 				12A6673721C5F86D00FE3C15 /* User.swift in Sources */,
 				12A6673421C3902000FE3C15 /* SingleMessageViewController.swift in Sources */,
 				12A6673221C3727800FE3C15 /* MessagesViewController.swift in Sources */,

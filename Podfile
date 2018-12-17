@@ -10,6 +10,8 @@ pod 'Firebase/Core'
 pod 'Firebase/Database'
 pod 'Firebase/Auth'
 pod 'Firebase/Storage'
+pod 'MessageKit'
+pod 'Scaledrone', '~> 0.3.0'
   target 'swift-talkTests' do
     inherit! :search_paths
     # Pods for testing

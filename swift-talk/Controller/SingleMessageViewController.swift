@@ -13,7 +13,7 @@ import FirebaseDatabase
 class SingleMessageViewController: UIViewController ,UITableViewDelegate, UITableViewDataSource{
 
     var users = [User]()
-    
+    var clickedTitle = User()
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
     }
@@ -28,12 +28,23 @@ class SingleMessageViewController: UIViewController ,UITableViewDelegate, UITabl
         let placeholder = UIImage(named: "icons8-user-50")
         cell.imageView?.image = placeholder
      
-        if let imageUrl = users[indexPath.row].image{
+        if let imageUrl = users[indexPath.row].image, users[indexPath.row].image != ""{
             cell.imageView?.loadImageFromCache(urlString: imageUrl)
         }
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        clickedTitle = users[indexPath.row]
+        self.performSegue(withIdentifier: "chatSegue", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "chatSegue"{
+            let chatVC = segue.destination as? ChatViewController
+            chatVC?.mainTitle = clickedTitle
+        }
+    }
 
     override func viewDidLoad() {
         
@@ -49,7 +60,9 @@ class SingleMessageViewController: UIViewController ,UITableViewDelegate, UITabl
             print(snapshot)
             if let dictionary = snapshot.value as? [String: AnyObject]
             {
+                
                 let user = User()
+                user.id = snapshot.key
                 user.setValuesForKeys(dictionary)
                 self.users.append(user)
                 
@@ -64,16 +77,28 @@ class SingleMessageViewController: UIViewController ,UITableViewDelegate, UITabl
     @IBAction func back(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
-   
-
 }
 
 class SingleCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "cell")
+        
+        addSubview(timeLabel)
+        timeLabel.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        timeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 18).isActive = true
+        timeLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        timeLabel.heightAnchor.constraint(equalTo: (textLabel?.heightAnchor)!).isActive = true
+        
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("coder not implemented")
     }
+    
+    let timeLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.textColor = UIColor.lightGray
+        return label
+    }()
 }

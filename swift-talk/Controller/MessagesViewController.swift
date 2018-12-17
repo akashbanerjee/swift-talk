@@ -12,21 +12,112 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
 
-class MessagesViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class MessagesViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
+    
+   
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return messages.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SingleCell
+        let message = messages[indexPath.row]
+        
+        let chatId: String?
+        if message.fromId == Auth.auth().currentUser?.uid{
+            chatId = message.toId
+        }
+        else {
+            chatId = message.fromId
+        }
+        
+        if let chatId = chatId{
+            let ref = Database.database().reference().child("users").child(chatId)
+            ref.observe(.value, with: { (snapshot) in
+                
+                if let dictionary = snapshot.value as? [String: AnyObject]{
+                    cell.textLabel?.text = dictionary["name"] as? String
+                    cell.detailTextLabel?.text = message.text
+                    if let seconds = message.timestamp?.doubleValue{
+                        let timeStampDate = Date(timeIntervalSince1970: seconds)
+                        let dateFormat = DateFormatter()
+                        dateFormat.dateFormat = "HH:mm:ss a"
+                        cell.timeLabel.text = dateFormat.string(from: timeStampDate as Date)
+                        
+                    }
+                    if let imageUrl = dictionary["image"]{
+                        cell.imageView?.loadImageFromCache(urlString: imageUrl as! String)
+                    }
+                    else{
+                        let placeholder = UIImage(named: "icons8-user-50")
+                        cell.imageView?.image = placeholder
+                    }
+                }
+                
+            }, withCancel: nil)
+        }
+        
+        return cell
+    }
+    
 
+    @IBOutlet weak var messagesTableView: UITableView!
     let picker = UIImagePickerController()
+    
     override func viewDidLoad() {
+        self.messagesTableView.delegate = self
+        self.messagesTableView.dataSource = self
         super.viewDidLoad()
         setUserNameInHeader()
-        
         picker.delegate = self
         picker.allowsEditing = true
-        
+        messagesTableView.register(SingleCell.self, forCellReuseIdentifier: "cell")
         profilePicture.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(changeProfilePicture)))
         profilePicture.isUserInteractionEnabled = true
         
         loadProfilePictureIfPresent()
+//        checkNewMessages()
+        messages.removeAll()
+        messagesGroup.removeAll()
+        self.messagesTableView.reloadData()
+        checkUserMessages()
+        self.messagesTableView.reloadData()
     }
+    
+    func checkUserMessages() {
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let ref = Database.database().reference().child("user-messages").child(uid)
+        ref.observe(.childAdded, with: { (snapshot) in
+            let messageId = snapshot.key
+            let messagesRef = Database.database().reference().child("messages").child(messageId)
+            messagesRef.observeSingleEvent(of: .value, with: { (snapshot) in
+                if let dictionary = snapshot.value as? [String: AnyObject]
+                {
+                    let messageObj = Message()
+                    messageObj.setValuesForKeys(dictionary)
+                    self.messages.append(messageObj)
+                    if let toId = messageObj.toId {
+                        self.messagesGroup[toId] = messageObj
+                        self.messages = Array(self.messagesGroup.values)
+                        self.messages.sort(by: { (message1, message2) -> Bool in
+                            guard let message1Val = message1.timestamp?.intValue, let message2Val = message2.timestamp?.intValue else { return true }
+                            return message1Val > message2Val
+                        })
+                        
+                    }
+                    DispatchQueue.main.async {
+                        self.messagesTableView.reloadData()
+                    }
+                }
+            }, withCancel: nil)
+        }, withCancel: nil)
+        
+        
+    }
+    var messages = [Message]()
+    var messagesGroup = [String: Message]()
+
     
     func loadProfilePictureIfPresent(){
         let uid = Auth.auth().currentUser?.uid
