@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
-
+// friends list
 class SingleMessageViewController: UIViewController ,UITableViewDelegate, UITableViewDataSource{
 
     var users = [User]()
