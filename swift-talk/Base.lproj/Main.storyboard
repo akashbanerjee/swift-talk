@@ -40,7 +40,7 @@
                                 <rect key="frame" x="16" y="264" width="343" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2w-sT-JzT">
                                 <rect key="frame" x="16" y="342" width="343" height="30"/>
@@ -109,7 +109,7 @@
                                     <navigationItem title="Messages" id="FIM-gO-cLD">
                                         <barButtonItem key="leftBarButtonItem" title="Logout" id="eDH-Y7-2x9">
                                             <connections>
-                                                <action selector="logout:" destination="lcg-qt-6qp" id="tp1-Si-y16"/>
+                                                <segue destination="GzX-Nd-tCk" kind="unwind" unwindAction="unwindFromLogoutWithSegue:" id="jLN-rE-1jF"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="New Message" image="icons8-chat-filled-40" id="3zk-Sp-yIg">
@@ -164,6 +164,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iZY-Kz-RoY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="GzX-Nd-tCk" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="366" y="784"/>
         </scene>
@@ -182,7 +183,7 @@
                                     <navigationItem title="New Message" id="NiR-2b-VXO">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="OYg-9H-hoI">
                                             <connections>
-                                                <action selector="back:" destination="OQC-t8-CJ4" id="DKz-gH-QXs"/>
+                                                <segue destination="mUC-Gf-Rhs" kind="unwind" unwindAction="unwindFromNewMessageWithSegue:" id="bgl-nI-4EV"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -214,6 +215,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bAI-As-nGi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="mUC-Gf-Rhs" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1224.8" y="783.99014778325125"/>
         </scene>
@@ -231,7 +233,7 @@
                                     <navigationItem title="Title" id="HEh-IR-XTB">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="h6n-hC-cY9">
                                             <connections>
-                                                <action selector="back:" destination="5sz-et-yBP" id="oDL-Er-uKs"/>
+                                                <segue destination="jNq-G0-oqb" kind="unwind" unwindAction="unwindFromChatWithSegue:" id="kSX-9x-ccv"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -293,6 +295,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tgM-hx-bI1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="jNq-G0-oqb" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1192.8" y="1542.1182266009853"/>
         </scene>
@@ -326,7 +329,7 @@
                                 <rect key="frame" x="16" y="250" width="343" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="toW-Ah-iOu">
                                 <rect key="frame" x="16" y="288" width="343" height="30"/>
@@ -371,6 +374,6 @@
         <image name="icons8-user-50" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fcO-2r-ITY"/>
+        <segue reference="fGg-vW-iL5"/>
     </inferredMetricsTieBreakers>
 </document>

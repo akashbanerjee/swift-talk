@@ -76,7 +76,6 @@ class MessagesViewController: UIViewController, UIImagePickerControllerDelegate,
         profilePicture.isUserInteractionEnabled = true
         
         loadProfilePictureIfPresent()
-//        checkNewMessages()
         messages.removeAll()
         messagesGroup.removeAll()
         self.messagesTableView.reloadData()
@@ -97,8 +96,17 @@ class MessagesViewController: UIViewController, UIImagePickerControllerDelegate,
                     let messageObj = Message()
                     messageObj.setValuesForKeys(dictionary)
                     self.messages.append(messageObj)
-                    if let toId = messageObj.toId {
-                        self.messagesGroup[toId] = messageObj
+                    
+                    let chatId: String?
+                    if messageObj.fromId == Auth.auth().currentUser?.uid{
+                        chatId = messageObj.toId
+                    }
+                    else {
+                        chatId = messageObj.fromId
+                    }
+                    
+                    if let chatId = chatId {
+                        self.messagesGroup[chatId] = messageObj
                         self.messages = Array(self.messagesGroup.values)
                         self.messages.sort(by: { (message1, message2) -> Bool in
                             guard let message1Val = message1.timestamp?.intValue, let message2Val = message2.timestamp?.intValue else { return true }
@@ -165,15 +173,10 @@ class MessagesViewController: UIViewController, UIImagePickerControllerDelegate,
         })
         
     }
-
-    @IBAction func logout(_ sender: Any) {
-        do{
-            try Auth.auth().signOut()
-            print("signed out")
-            dismiss(animated: true, completion: nil)
-            
-        } catch let logoutException{
-            print(logoutException)
+    @IBAction func unwindFromNewMessage(segue: UIStoryboardSegue){
+        //unwind from major filter VC and set the new retrieved filtered major list
+        if segue.source is SingleMessageViewController{
+            print("back")
         }
     }
     

@@ -39,10 +39,23 @@ class LoginViewController: UIViewController {
                 return
             }
             print("Logged in")
+            DispatchQueue.main.async {
             self.performSegue(withIdentifier: "messagesView", sender: self);
+            }
             
         }
     }
     @IBOutlet weak var login: UIButton!
+    
+    @IBAction func unwindFromLogout(segue: UIStoryboardSegue){
+        //unwind from major filter VC and set the new retrieved filtered major list
+        if segue.source is MessagesViewController{
+            do{
+                try Auth.auth().signOut()
+            }catch let logoutException{
+                print(logoutException)
+            }
+        }
+    }
     
 }

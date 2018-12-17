@@ -49,7 +49,9 @@ class RegistrationViewController: UIViewController {
                 }
                 //user entered into database
                 print("User entered in database")
+                DispatchQueue.main.async {
                 self.performSegue(withIdentifier: "messagesViewFromRegister", sender: self);
+                }
                 
             })
             
@@ -62,10 +64,17 @@ class RegistrationViewController: UIViewController {
     
     @IBOutlet weak var email: UITextField!
     
-    
-    
+    @IBAction func unwindFromLogout(segue: UIStoryboardSegue){
+        //unwind from major filter VC and set the new retrieved filtered major list
+        if segue.source is MessagesViewController{
+            do{
+                try Auth.auth().signOut()
+            }catch let logoutException{
+                print(logoutException)
+            }
+        }
+    }
 }
-    
 
 //Reference: https://medium.com/ios-os-x-development/ios-extend-uicolor-with-custom-colors-93366ae148e6
 extension UIColor {
