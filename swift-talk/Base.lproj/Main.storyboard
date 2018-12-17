@@ -189,15 +189,15 @@
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="st7-3a-Afk">
-                                <rect key="frame" x="16" y="64" width="343" height="714"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="714"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="89" id="1Vq-SK-1JG">
-                                        <rect key="frame" x="0.0" y="28" width="343" height="89"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="89"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1Vq-SK-1JG" id="Kxq-eK-1Ui">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="88.666666666666671"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="88.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -238,18 +238,19 @@
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Dim-rr-TDI">
-                                <rect key="frame" x="16" y="88" width="343" height="588"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="560"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="qhD-yz-nZg">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qhD-yz-nZg" id="CYr-fz-hrZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Message" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1X8-ht-XhL">
-                                <rect key="frame" x="16" y="684" width="299" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="299" id="BqH-Vd-jNa"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fuR-y0-hJj">
                                 <rect key="frame" x="323" y="683" width="36" height="30"/>
                                 <state key="normal" title="Send"/>
@@ -257,21 +258,29 @@
                                     <action selector="sendMessage:" destination="5sz-et-yBP" eventType="touchUpInside" id="FfA-DC-mzy"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Message" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1X8-ht-XhL">
+                                <rect key="frame" x="16" y="683" width="299" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="299" id="D9K-7H-dvS"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fuR-y0-hJj" firstAttribute="leading" secondItem="1X8-ht-XhL" secondAttribute="trailing" constant="8" id="By9-UB-kAI"/>
+                            <constraint firstItem="Dim-rr-TDI" firstAttribute="leading" secondItem="oFB-j1-tb8" secondAttribute="leading" id="Ibb-sy-qWd"/>
+                            <constraint firstItem="Dim-rr-TDI" firstAttribute="trailing" secondItem="oFB-j1-tb8" secondAttribute="trailing" id="IcK-lu-11U"/>
+                            <constraint firstItem="1X8-ht-XhL" firstAttribute="leading" secondItem="Aan-kW-IhS" secondAttribute="leadingMargin" id="It9-aG-dtn"/>
                             <constraint firstItem="Mbx-xN-9mX" firstAttribute="top" secondItem="oFB-j1-tb8" secondAttribute="top" id="KQk-WV-0VW"/>
-                            <constraint firstItem="1X8-ht-XhL" firstAttribute="top" secondItem="fuR-y0-hJj" secondAttribute="top" constant="1" id="RQt-7M-pDn"/>
-                            <constraint firstItem="1X8-ht-XhL" firstAttribute="leading" secondItem="Dim-rr-TDI" secondAttribute="leading" id="TW6-Ay-Edz"/>
+                            <constraint firstItem="1X8-ht-XhL" firstAttribute="top" secondItem="Dim-rr-TDI" secondAttribute="bottom" constant="35" id="QwN-Qm-zhy"/>
                             <constraint firstItem="Mbx-xN-9mX" firstAttribute="trailing" secondItem="oFB-j1-tb8" secondAttribute="trailing" id="aCu-L3-6df"/>
-                            <constraint firstItem="fuR-y0-hJj" firstAttribute="top" secondItem="Dim-rr-TDI" secondAttribute="bottom" constant="7" id="aVA-6b-E3L"/>
-                            <constraint firstItem="oFB-j1-tb8" firstAttribute="trailing" secondItem="Dim-rr-TDI" secondAttribute="trailing" constant="16" id="hbR-lO-ojV"/>
-                            <constraint firstItem="Dim-rr-TDI" firstAttribute="top" secondItem="Mbx-xN-9mX" secondAttribute="bottom" id="n5c-4Z-6X8"/>
+                            <constraint firstItem="oFB-j1-tb8" firstAttribute="bottom" secondItem="1X8-ht-XhL" secondAttribute="bottom" constant="16" id="e4U-J2-kPx"/>
+                            <constraint firstItem="1X8-ht-XhL" firstAttribute="top" secondItem="fuR-y0-hJj" secondAttribute="top" id="mhM-mm-IIo"/>
                             <constraint firstItem="Mbx-xN-9mX" firstAttribute="leading" secondItem="oFB-j1-tb8" secondAttribute="leading" id="qyD-nR-Yhc"/>
-                            <constraint firstItem="oFB-j1-tb8" firstAttribute="bottom" secondItem="fuR-y0-hJj" secondAttribute="bottom" constant="16" id="rdG-pY-v8q"/>
-                            <constraint firstItem="oFB-j1-tb8" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fuR-y0-hJj" secondAttribute="trailing" id="w4d-cO-YBk"/>
-                            <constraint firstItem="Dim-rr-TDI" firstAttribute="leading" secondItem="oFB-j1-tb8" secondAttribute="leading" constant="16" id="xiJ-Ko-dYS"/>
+                            <constraint firstItem="fuR-y0-hJj" firstAttribute="leading" secondItem="1X8-ht-XhL" secondAttribute="trailing" constant="8" symbolic="YES" id="uXG-Bz-bgV"/>
+                            <constraint firstItem="Dim-rr-TDI" firstAttribute="top" secondItem="Mbx-xN-9mX" secondAttribute="bottom" id="x1X-06-NRL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="oFB-j1-tb8"/>
                     </view>
@@ -279,6 +288,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="messageBody" destination="1X8-ht-XhL" id="Khl-CQ-qkg"/>
+                        <outlet property="messageExchanges" destination="Dim-rr-TDI" id="Psq-xk-yYv"/>
                         <outlet property="messageTitle" destination="HEh-IR-XTB" id="aHR-x1-YPV"/>
                     </connections>
                 </viewController>
@@ -356,9 +366,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Fotolia_30732541_XS" width="400" height="300"/>
-        <image name="icons8-chat-filled-40" width="30" height="30"/>
-        <image name="icons8-user-50" width="37.5" height="37.5"/>
+        <image name="Fotolia_30732541_XS" width="133" height="100"/>
+        <image name="icons8-chat-filled-40" width="40" height="40"/>
+        <image name="icons8-user-50" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="fcO-2r-ITY"/>
