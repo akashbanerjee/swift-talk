@@ -55,9 +55,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate {
         messageBody.delegate = self
     }
     @IBOutlet weak var messageBody: UITextField!
-    @IBAction func back(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
+   
     
     @IBOutlet weak var messageTitle: UINavigationItem!
     func setTitleAsNameOfReceiver(){

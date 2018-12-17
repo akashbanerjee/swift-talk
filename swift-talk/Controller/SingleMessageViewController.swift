@@ -17,20 +17,19 @@ class SingleMessageViewController: UIViewController ,UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
     }
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
+   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = users[indexPath.row].name
         cell.detailTextLabel?.text = users[indexPath.row].email
         let placeholder = UIImage(named: "icons8-user-50")
         cell.imageView?.image = placeholder
-     
         if let imageUrl = users[indexPath.row].image, users[indexPath.row].image != ""{
             cell.imageView?.loadImageFromCache(urlString: imageUrl)
         }
+       
+        
+        
         return cell
     }
     
@@ -52,12 +51,13 @@ class SingleMessageViewController: UIViewController ,UITableViewDelegate, UITabl
         self.tableView?.delegate = self
         super.viewDidLoad()
         tableView.register(SingleCell.self, forCellReuseIdentifier: "cell")
+        users.removeAll()
         fetchAllContacts()
     }
     
     func fetchAllContacts(){
         Database.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
-            print(snapshot)
+           
             if let dictionary = snapshot.value as? [String: AnyObject]
             {
                 
@@ -67,6 +67,7 @@ class SingleMessageViewController: UIViewController ,UITableViewDelegate, UITabl
                 self.users.append(user)
                 
                 DispatchQueue.main.async {
+                    print(self.users.count)
                     self.tableView.reloadData()
                 }
             }
@@ -74,8 +75,12 @@ class SingleMessageViewController: UIViewController ,UITableViewDelegate, UITabl
     }
     
     @IBOutlet weak var tableView: UITableView!
-    @IBAction func back(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+  
+    @IBAction func unwindFromChat(segue: UIStoryboardSegue){
+        //unwind from major filter VC and set the new retrieved filtered major list
+        if segue.source is ChatViewController{
+            print("back")
+        }
     }
 }
 
