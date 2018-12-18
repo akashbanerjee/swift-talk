@@ -17,6 +17,7 @@
 		1266A67E21C7100900846400 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1266A67D21C7100900846400 /* Extensions.swift */; };
 		1266A68021C719DF00846400 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1266A67F21C719DF00846400 /* ChatViewController.swift */; };
 		1266A68221C7516300846400 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1266A68121C7516300846400 /* Message.swift */; };
+		1266A68421C87B6A00846400 /* KeyboardLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1266A68321C87B6A00846400 /* KeyboardLayoutConstraint.swift */; };
 		129A971421BC21DE00382B2F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129A971321BC21DE00382B2F /* LoginViewController.swift */; };
 		12A6673221C3727800FE3C15 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A6673121C3727800FE3C15 /* MessagesViewController.swift */; };
 		12A6673421C3902000FE3C15 /* SingleMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A6673321C3902000FE3C15 /* SingleMessageViewController.swift */; };
@@ -61,6 +62,7 @@
 		1266A67D21C7100900846400 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		1266A67F21C719DF00846400 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		1266A68121C7516300846400 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		1266A68321C87B6A00846400 /* KeyboardLayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutConstraint.swift; sourceTree = "<group>"; };
 		129A971321BC21DE00382B2F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		12A6673121C3727800FE3C15 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		12A6673321C3902000FE3C15 /* SingleMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMessageViewController.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 		1266A67C21C70FE300846400 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				1266A68321C87B6A00846400 /* KeyboardLayoutConstraint.swift */,
 				1266A67D21C7100900846400 /* Extensions.swift */,
 			);
 			path = Helpers;
@@ -457,6 +460,7 @@
 				129A971421BC21DE00382B2F /* LoginViewController.swift in Sources */,
 				12BA7E1E21B3225F0072B231 /* RegistrationViewController.swift in Sources */,
 				1266A68021C719DF00846400 /* ChatViewController.swift in Sources */,
+				1266A68421C87B6A00846400 /* KeyboardLayoutConstraint.swift in Sources */,
 				1266A68221C7516300846400 /* Message.swift in Sources */,
 				12A6673721C5F86D00FE3C15 /* User.swift in Sources */,
 				12A6673421C3902000FE3C15 /* SingleMessageViewController.swift in Sources */,

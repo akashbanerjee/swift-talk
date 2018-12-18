@@ -58,8 +58,9 @@ class ChatViewController: UIViewController, UITextFieldDelegate,UITableViewDeleg
        
         
     }
-    
+  
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
         sendMessage(self)
         return true
     }
@@ -74,7 +75,12 @@ class ChatViewController: UIViewController, UITextFieldDelegate,UITableViewDeleg
         setTitleAsNameOfReceiver()
         getChatHistory()
         messageBody.delegate = self
+       
+
     }
+ 
+    
+   
     @IBOutlet weak var messageBody: UITextField!
    
     
