@@ -30,29 +30,14 @@ class RegistrationViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
     @IBAction func register(_ sender: Any) {
+        
         guard let name = name.text, let password = password.text, let email = email.text else { return }
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error != nil {
-                print(error?.localizedDescription)
-                let alert = UIAlertController(title: "Alert", message: error?.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                    switch action.style{
-                    case .default:
-                        print("default")
-                        
-                    case .cancel:
-                        print("cancel")
-                        
-                    case .destructive:
-                        print("destructive")
-                        
-                        
-                    }}))
-                self.present(alert, animated: true, completion: nil)
-                return
+                self.addAlert(title: "Registration Error", message: error?.localizedDescription ?? "")
                 return
             }
-            print("user authenticated")
+            
             guard let uid = user?.user.uid else { return }
             //user authenticated
             let ref = Database.database().reference()
@@ -60,40 +45,20 @@ class RegistrationViewController: UIViewController {
             let data = ["name": name, "email": email, "image": ""]
             child.updateChildValues(data, withCompletionBlock: { (error, databaseReference) in
                 if error != nil {
-                    print(error?.localizedDescription)
-                    let alert = UIAlertController(title: "Alert", message: error?.localizedDescription, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                        switch action.style{
-                        case .default:
-                            print("default")
-                            
-                        case .cancel:
-                            print("cancel")
-                            
-                        case .destructive:
-                            print("destructive")
-                            
-                            
-                        }}))
-                    self.present(alert, animated: true, completion: nil)
+                    self.addAlert(title: "Registration Error", message: error?.localizedDescription ?? "")
                     return
-                    return
+                    
                 }
                 //user entered into database
-                print("User entered in database")
                 DispatchQueue.main.async {
                 self.performSegue(withIdentifier: "messagesViewFromRegister", sender: self);
                 }
-                
             })
-            
         }
     }
     
     @IBOutlet weak var name: UITextField!
-    
     @IBOutlet weak var password: UITextField!
-    
     @IBOutlet weak var email: UITextField!
     
     @IBAction func unwindFromLogout(segue: UIStoryboardSegue){
@@ -108,13 +73,7 @@ class RegistrationViewController: UIViewController {
     }
 }
 
-//Reference: https://medium.com/ios-os-x-development/ios-extend-uicolor-with-custom-colors-93366ae148e6
-extension UIColor {
-    convenience init(red: Int, green: Int, blue: Int) {
-        assert(red >= 0 && red <= 255, "Invalid red component")
-        assert(green >= 0 && green <= 255, "Invalid green component")
-        assert(blue >= 0 && blue <= 255, "Invalid blue component")
-        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
-    }
-}
+
+
+
 

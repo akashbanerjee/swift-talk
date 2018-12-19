@@ -25,7 +25,6 @@ class LoginViewController: UIViewController {
     }
     
     @IBOutlet weak var email: UITextField!
-    
     @IBAction func backButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -35,25 +34,9 @@ class LoginViewController: UIViewController {
         guard let email = email.text, let password = password.text else { return }
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error != nil {
-                print(error?.localizedDescription)
-                let alert = UIAlertController(title: "Alert", message: error?.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                    switch action.style{
-                    case .default:
-                        print("default")
-                        
-                    case .cancel:
-                        print("cancel")
-                        
-                    case .destructive:
-                        print("destructive")
-                        
-                        
-                    }}))
-                self.present(alert, animated: true, completion: nil)
+                self.addAlert(title: "Login Error", message: error?.localizedDescription ?? "")
                 return
             }
-            print("Logged in")
             DispatchQueue.main.async {
             self.performSegue(withIdentifier: "messagesView", sender: self);
             }
@@ -61,7 +44,6 @@ class LoginViewController: UIViewController {
         }
     }
     @IBOutlet weak var login: UIButton!
-    
     @IBAction func unwindFromLogout(segue: UIStoryboardSegue){
         //unwind from major filter VC and set the new retrieved filtered major list
         if segue.source is MessagesViewController{
