@@ -84,13 +84,15 @@ class MessagesViewController: UIViewController, UIImagePickerControllerDelegate,
                         cell.timeLabel.text = dateFormat.string(from: timeStampDate as Date)
                         
                     }
-                    if let imageUrl = dictionary["image"]{
+                    let placeholder = UIImage(named: "icons8-user-50")
+                    cell.imageView?.image = placeholder
+                    if let imageUrl = dictionary["image"], imageUrl as! String != ""{
+                        
                         cell.imageView?.loadImageFromCache(urlString: imageUrl as! String)
+                            
+                        
                     }
-                    else{
-                        let placeholder = UIImage(named: "icons8-user-50")
-                        cell.imageView?.image = placeholder
-                    }
+                   
                 }
                 
             }, withCancel: nil)

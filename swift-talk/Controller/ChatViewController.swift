@@ -89,9 +89,6 @@ class ChatViewController: UIViewController, UITextFieldDelegate,UITableViewDeleg
         messageTitle.title = mainTitle.name
     }
     
-    
-    
-    
     // This function will fetch some the previous
     // message exchanged with this secelected User()
     // sender is the person logged in
@@ -121,10 +118,77 @@ class ChatViewController: UIViewController, UITextFieldDelegate,UITableViewDeleg
                     self.messageExchanges.scrollToRow(at: IndexPath(item:self.messages.count-1, section: 0), at: .bottom, animated: true)
                 }
             })
-            
-//            print(snapshot)
+
         })
     }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
+        // UITableView only moves in one direction, y axis
+        let currentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        
+        // Change 10.0 to adjust the distance from bottom
+        if maximumOffset - currentOffset <= 10.0 {
+//            self.loadMore()
+        }
+    }
+    
+    // number of items to be fetched each time (i.e., database LIMIT)
+    let itemsPerBatch = 50
+    
+    // Where to start fetching items (database OFFSET)
+    var offset = 0
+    
+    // a flag for when all database items have already been loaded
+    var reachedEndOfItems = false
+    
+//    func loadMore(){
+//        // don't bother doing another db query if already have everything
+//        guard !self.reachedEndOfItems else {
+//            return
+//        }
+//
+//        // query the db on a background thread
+//        DispatchQueue.global(qos: .background).async {
+//
+//            // determine the range of data items to fetch
+//            var thisBatchOfItems: [Message]?
+//            let start = self.offset
+//            let end = self.offset + self.itemsPerBatch
+//
+//            // query the database
+//            do {
+//                // SQLite.swift wrapper
+//                thisBatchOfItems = try MyDataHelper.findRange(start..<end)
+//            } catch _ {
+//                print("query failed")
+//            }
+//
+//            // update UITableView with new batch of items on main thread after query finishes
+//            DispatchQueue.main.async {
+//
+//                if let newItems = thisBatchOfItems {
+//
+//                    // append the new items to the data source for the table view
+//                    self.myObjectArray.appendContentsOf(newItems)
+//
+//                    // reload the table view
+//                    self.messageExchanges.reloadData()
+//
+//                    // check if this was the last of the data
+//                    if newItems.count < self.itemsPerBatch {
+//                        self.reachedEndOfItems = true
+//                        print("reached end of data. Batch count: \(newItems.count)")
+//                    }
+//
+//                    // reset the offset for the next data query
+//                    self.offset += self.itemsPerBatch
+//                }
+//
+//            }
+//        }
+//    }
     
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
