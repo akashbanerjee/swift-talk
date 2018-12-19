@@ -117,7 +117,9 @@ class ChatViewController: UIViewController, UITextFieldDelegate,UITableViewDeleg
                 }
                 
                 self.messageExchanges.reloadData()
-                print("message",messages.toId,self.mainTitle.id)
+                if self.messages.count > 0 {
+                    self.messageExchanges.scrollToRow(at: IndexPath(item:self.messages.count-1, section: 0), at: .bottom, animated: true)
+                }
             })
             
 //            print(snapshot)
@@ -143,12 +145,6 @@ class ChatViewController: UIViewController, UITextFieldDelegate,UITableViewDeleg
              cell.textLabel?.backgroundColor = UIColor.white
         }
         cell.separatorInset = UIEdgeInsets.zero
-//        if selected[indexPath.row]==1{
-//            cell.accessoryType = UITableViewCell.AccessoryType.checkmark
-//        }
-//        else if selected[indexPath.row]==0{
-//            cell.accessoryType = UITableViewCell.AccessoryType.none
-//        }
         return cell
     }
    

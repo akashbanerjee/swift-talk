@@ -161,6 +161,7 @@
                         <outlet property="messageTitle" destination="FIM-gO-cLD" id="brk-rx-b24"/>
                         <outlet property="messagesTableView" destination="YGT-oM-Xol" id="ynv-tC-NNR"/>
                         <outlet property="profilePicture" destination="g19-cv-1vG" id="xme-hs-Azn"/>
+                        <segue destination="5sz-et-yBP" kind="show" identifier="fromMessagesToChat" id="MVK-MK-grO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iZY-Kz-RoY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -382,6 +383,7 @@
         <image name="icons8-user-50" width="37.5" height="37.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fGg-vW-iL5"/>
+        <segue reference="eJn-pe-flm"/>
+        <segue reference="fcO-2r-ITY"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -35,7 +35,22 @@ class LoginViewController: UIViewController {
         guard let email = email.text, let password = password.text else { return }
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error != nil {
-                print(error)
+                print(error?.localizedDescription)
+                let alert = UIAlertController(title: "Alert", message: error?.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    switch action.style{
+                    case .default:
+                        print("default")
+                        
+                    case .cancel:
+                        print("cancel")
+                        
+                    case .destructive:
+                        print("destructive")
+                        
+                        
+                    }}))
+                self.present(alert, animated: true, completion: nil)
                 return
             }
             print("Logged in")

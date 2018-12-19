@@ -14,7 +14,45 @@ import FirebaseStorage
 
 class MessagesViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     
-   
+    var user = User()
+    var clickedTitle = User()
+    var nameArray = [String]()
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.clickedTitle = User()
+        let message = messages[indexPath.row]
+        
+        let chatId: String?
+        if message.fromId == Auth.auth().currentUser?.uid{
+            chatId = message.toId
+        }
+        else {
+            chatId = message.fromId
+        }
+        
+        if let chatId = chatId{
+            let ref = Database.database().reference().child("users").child(chatId)
+            ref.observe(.value, with: { (snapshot) in
+                
+                if let dictionary = snapshot.value as? [String: AnyObject]{
+                    
+                    self.clickedTitle.id = chatId
+                    self.clickedTitle.name = dictionary["name"] as? String
+                    DispatchQueue.main.async {
+                         self.performSegue(withIdentifier: "fromMessagesToChat", sender: self)
+                    }
+                }
+            }, withCancel: nil)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "fromMessagesToChat"{
+            let chatVC = segue.destination as? ChatViewController
+            chatVC?.mainTitle = clickedTitle
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }
@@ -37,6 +75,7 @@ class MessagesViewController: UIViewController, UIImagePickerControllerDelegate,
                 
                 if let dictionary = snapshot.value as? [String: AnyObject]{
                     cell.textLabel?.text = dictionary["name"] as? String
+                    self.nameArray.append(dictionary["name"] as? String ?? "Unknown")
                     cell.detailTextLabel?.text = message.text
                     if let seconds = message.timestamp?.doubleValue{
                         let timeStampDate = Date(timeIntervalSince1970: seconds)
@@ -157,6 +196,13 @@ class MessagesViewController: UIViewController, UIImagePickerControllerDelegate,
         if (gesture.view as? UIImageView) != nil {
             print("Image Tapped")
             present(picker, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func unwindFromChat(segue: UIStoryboardSegue){
+        //unwind from major filter VC and set the new retrieved filtered major list
+        if segue.source is ChatViewController{
+            print("back")
         }
     }
     

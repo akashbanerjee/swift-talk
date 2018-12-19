@@ -14,5 +14,5 @@ class Message: NSObject {
     var text: String?
     var fromId: String?
     var toId: String?
-    
+
 }

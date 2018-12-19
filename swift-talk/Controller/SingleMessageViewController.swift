@@ -27,9 +27,6 @@ class SingleMessageViewController: UIViewController ,UITableViewDelegate, UITabl
         if let imageUrl = users[indexPath.row].image, users[indexPath.row].image != ""{
             cell.imageView?.loadImageFromCache(urlString: imageUrl)
         }
-       
-        
-        
         return cell
     }
     

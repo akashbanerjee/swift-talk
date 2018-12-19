@@ -33,7 +33,23 @@ class RegistrationViewController: UIViewController {
         guard let name = name.text, let password = password.text, let email = email.text else { return }
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error != nil {
-                print("error while authenticated")
+                print(error?.localizedDescription)
+                let alert = UIAlertController(title: "Alert", message: error?.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    switch action.style{
+                    case .default:
+                        print("default")
+                        
+                    case .cancel:
+                        print("cancel")
+                        
+                    case .destructive:
+                        print("destructive")
+                        
+                        
+                    }}))
+                self.present(alert, animated: true, completion: nil)
+                return
                 return
             }
             print("user authenticated")
@@ -44,7 +60,23 @@ class RegistrationViewController: UIViewController {
             let data = ["name": name, "email": email, "image": ""]
             child.updateChildValues(data, withCompletionBlock: { (error, databaseReference) in
                 if error != nil {
-                    print("error while writing in database")
+                    print(error?.localizedDescription)
+                    let alert = UIAlertController(title: "Alert", message: error?.localizedDescription, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                        switch action.style{
+                        case .default:
+                            print("default")
+                            
+                        case .cancel:
+                            print("cancel")
+                            
+                        case .destructive:
+                            print("destructive")
+                            
+                            
+                        }}))
+                    self.present(alert, animated: true, completion: nil)
+                    return
                     return
                 }
                 //user entered into database
