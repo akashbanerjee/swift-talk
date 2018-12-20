@@ -19,9 +19,14 @@ class MessagesViewController: UIViewController {
         super.viewDidLoad()
         setHeader()
         checkUserMessages()
+        fetchChattingContacts()
+    }
+    
+    func fetchChattingContacts(){
     }
     
     var user = User()
+    var chattingUsers = [User]()
     var clickedTitle = User()
     var nameArray = [String]()
     var messages = [Message]()
@@ -58,7 +63,7 @@ class MessagesViewController: UIViewController {
     
     func checkUserMessages() {
         cleanAllMessages()
-        self.messagesTableView.reloadData()
+        
          
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let ref = databaseRef.child("user-messages").child(uid)
@@ -137,7 +142,7 @@ class MessagesViewController: UIViewController {
     @IBAction func unwindFromChat(segue: UIStoryboardSegue){
         //unwind from major filter VC and set the new retrieved filtered major list
         if segue.source is ChatViewController{
-            print("back")
+            self.messagesTableView.reloadData()
         }
     }
     
@@ -155,7 +160,7 @@ class MessagesViewController: UIViewController {
     @IBAction func unwindFromNewMessage(segue: UIStoryboardSegue){
         //unwind from major filter VC and set the new retrieved filtered major list
         if segue.source is SingleMessageViewController{
-            print("back")
+            self.messagesTableView.reloadData()
         }
     }
     
@@ -240,6 +245,7 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
                     
                     self.clickedTitle.id = chatId
                     self.clickedTitle.name = dictionary["name"] as? String
+                    print(indexPath.row, ": ", dictionary["image"])
                     DispatchQueue.main.async {
                         self.performSegue(withIdentifier: "fromMessagesToChat", sender: self)
                     }
@@ -273,6 +279,7 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
             ref.observe(.value, with: { (snapshot) in
                 
                 if let dictionary = snapshot.value as? [String: AnyObject]{
+                    
                     cell.name.text = dictionary["name"] as? String
                     self.nameArray.append(dictionary["name"] as? String ?? "Unknown")
                     cell.msg.text = message.text
@@ -283,13 +290,12 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
                         cell.timestamp.text = dateFormat.string(from: timeStampDate as Date)
                         
                     }
-                   
-                    if let imageUrl = dictionary["image"], imageUrl as! String != ""{
-                        
-                        cell.dp.loadImageFromCache(urlString: imageUrl as! String)
-                        
-                        
+                    
+                    if let imageUrl = dictionary["image"] as? String, imageUrl != ""{
+                        print(imageUrl, ":", indexPath.row)
+                        cell.dp.loadImageFromCache(urlString: imageUrl)
                     }
+                   
                 
                     
                 }
