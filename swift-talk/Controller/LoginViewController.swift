@@ -25,10 +25,6 @@ class LoginViewController: UIViewController {
 
     }
     
-    @IBOutlet weak var email: UITextField!
-    @IBOutlet weak var password: UITextField!
-    @IBOutlet weak var login: UIButton!
-    
     func setupListenersOnTextFields(){
         self.password.delegate = self
         self.email.delegate = self

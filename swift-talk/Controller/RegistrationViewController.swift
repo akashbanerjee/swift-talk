@@ -27,12 +27,6 @@ class RegistrationViewController: UIViewController {
         self.hideKeyboardWhenTappedAround()
     }
     
-    @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var registerButton: UIButton!
-    @IBOutlet weak var name: UITextField!
-    @IBOutlet weak var password: UITextField!
-    @IBOutlet weak var email: UITextField!
-    
     func setupListenersOnTextFields(){
         self.name.delegate = self
         self.password.delegate = self
