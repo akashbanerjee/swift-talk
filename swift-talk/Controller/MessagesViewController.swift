@@ -253,7 +253,11 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SingleCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) as? MessagesDisplayTableViewCell else
+        {
+            fatalError("The dequeued cell is not an instance of MessagesDisplayTableViewCell.")
+        }
+        
         let message = messages[indexPath.row]
         
         let chatId: String?
@@ -269,29 +273,24 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
             ref.observe(.value, with: { (snapshot) in
                 
                 if let dictionary = snapshot.value as? [String: AnyObject]{
-                    cell.textLabel?.text = dictionary["name"] as? String
+                    cell.name.text = dictionary["name"] as? String
                     self.nameArray.append(dictionary["name"] as? String ?? "Unknown")
-                    cell.detailTextLabel?.text = message.text
+                    cell.msg.text = message.text
                     if let seconds = message.timestamp?.doubleValue{
                         let timeStampDate = Date(timeIntervalSince1970: seconds)
                         let dateFormat = DateFormatter()
                         dateFormat.dateFormat = "HH:mm:ss a"
-                        cell.timeLabel.text = dateFormat.string(from: timeStampDate as Date)
+                        cell.timestamp.text = dateFormat.string(from: timeStampDate as Date)
                         
                     }
-                    let placeholder = UIImage(named: "dps")
-                    cell.imageView?.image = placeholder
+                   
                     if let imageUrl = dictionary["image"], imageUrl as! String != ""{
                         
-                        cell.imageView?.loadImageFromCache(urlString: imageUrl as! String)
+                        cell.dp.loadImageFromCache(urlString: imageUrl as! String)
                         
                         
                     }
-                    cell.imageView?.layer.borderWidth = 3.0
-                    cell.imageView?.layer.masksToBounds = false
-                    cell.imageView?.layer.borderColor = UIColor.white.cgColor
-                    cell.imageView?.layer.cornerRadius = 25
-                    cell.imageView?.clipsToBounds = true
+                
                     
                 }
                 

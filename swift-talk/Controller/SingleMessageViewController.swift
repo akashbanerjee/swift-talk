@@ -60,20 +60,26 @@ class SingleMessageViewController: UIViewController{
 
 extension SingleMessageViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = users[indexPath.row].name
-        cell.detailTextLabel?.text = users[indexPath.row].email
-        let placeholder = UIImage(named: "dps")
-        cell.imageView?.image = placeholder
-        if let imageUrl = users[indexPath.row].image, users[indexPath.row].image != ""{
-            cell.imageView?.loadImageFromCache(urlString: imageUrl)
+        //let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) as? MessagesDisplayTableViewCell else
+        {
+            fatalError("The dequeued cell is not an instance of MessagesDisplayTableViewCell.")
         }
-        cell.imageView?.layer.borderWidth = 3.0
-        cell.imageView?.layer.masksToBounds = false
-        cell.imageView?.layer.borderColor = UIColor.white.cgColor
-        cell.imageView?.layer.cornerRadius = 10
-        cell.imageView?.clipsToBounds = true
-        cell.imageView?.sizeToFit()
+        
+        
+        cell.name.text = users[indexPath.row].name
+        cell.email.text = users[indexPath.row].email
+//          let placeholder = UIImage(named: "dps")
+//          cell.dp?.image = placeholder
+        if let imageUrl = users[indexPath.row].image, users[indexPath.row].image != ""{
+            cell.dp.loadImageFromCache(urlString: imageUrl)
+        }
+//        cell.imageView?.layer.borderWidth = 3.0
+//        cell.imageView?.layer.masksToBounds = false
+//        cell.imageView?.layer.borderColor = UIColor.white.cgColor
+//        cell.imageView?.layer.cornerRadius = 10
+//        cell.imageView?.clipsToBounds = true
+//        cell.imageView?.sizeToFit()
         return cell
     }
     
