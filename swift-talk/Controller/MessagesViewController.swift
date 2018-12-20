@@ -11,19 +11,8 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
-
+// latest chats
 class MessagesViewController: UIViewController {
-    
-    override func viewDidLoad() {
-        initializeMessageTable()
-        super.viewDidLoad()
-        setHeader()
-        checkUserMessages()
-        fetchChattingContacts()
-    }
-    
-    func fetchChattingContacts(){
-    }
     
     var user = User()
     var chattingUsers = [User]()
@@ -32,12 +21,63 @@ class MessagesViewController: UIViewController {
     var messages = [Message]()
     var messagesGroup = [String: Message]()
     let picker = UIImagePickerController()
+    var messageDetails = [MessageDetails]()
     let databaseRef = Database.database().reference()
     
     @IBOutlet weak var messagesTableView: UITableView!
     @IBOutlet weak var profilePicture: UIImageView!
     @IBOutlet weak var messageTitle: UINavigationItem!
 
+    override func viewDidLoad() {
+        initializeMessageTable()
+        super.viewDidLoad()
+        setHeader()
+        checkUserMessages()
+        //get all users messages and display them in table
+    }
+    
+    func fetchChattingContacts(){
+        print("chat")
+        for var eachMessage in messages {
+            print(eachMessage)
+            let message = eachMessage
+            let chatId: String?
+            if message.fromId == Auth.auth().currentUser?.uid{
+                chatId = message.toId
+            }
+            else {
+                chatId = message.fromId
+            }
+            if let chatId = chatId{
+                let ref = databaseRef.child("users").child(chatId)
+                ref.observe(.value, with: { (snapshot) in
+                    if let dictionary = snapshot.value as? [String: AnyObject]{
+                        self.nameArray.append(dictionary["name"] as? String ?? "Unknown")
+                        var msgdetails = MessageDetails()
+                        msgdetails.name = dictionary["name"] as? String ?? "Unknown"
+                        msgdetails.text = message.text
+                        if let seconds = message.timestamp?.doubleValue{
+                            let timeStampDate = Date(timeIntervalSince1970: seconds)
+                            let dateFormat = DateFormatter()
+                            dateFormat.dateFormat = "HH:mm:ss a"
+                            msgdetails.time = dateFormat.string(from: timeStampDate as Date)
+                        }
+                        if let imageUrl = dictionary["image"] as? String, imageUrl != ""{
+                            msgdetails.image = imageUrl
+                        }
+                        else{
+                             msgdetails.image = ""
+                        }
+                        self.messageDetails.append(msgdetails)
+                    }
+                    DispatchQueue.main.async {
+                        self.messagesTableView.reloadData()
+                    }
+                }, withCancel: nil)
+            }
+        }
+    }
+   
     func setHeader() {
         setUserNameInHeader()
         loadProfilePictureIfPresent()
@@ -62,9 +102,8 @@ class MessagesViewController: UIViewController {
     }
     
     func checkUserMessages() {
+        print("msg")
         cleanAllMessages()
-        
-         
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let ref = databaseRef.child("user-messages").child(uid)
         ref.observe(.childAdded, with: { (snapshot) in
@@ -84,7 +123,6 @@ class MessagesViewController: UIViewController {
                     else {
                         chatId = messageObj.fromId
                     }
-                    
                     if let chatId = chatId {
                         self.messagesGroup[chatId] = messageObj
                         self.messages = Array(self.messagesGroup.values)
@@ -92,19 +130,20 @@ class MessagesViewController: UIViewController {
                             guard let message1Val = message1.timestamp?.intValue, let message2Val = message2.timestamp?.intValue else { return true }
                             return message1Val > message2Val
                         })
-                        
+                      
                     }
                     DispatchQueue.main.async {
-                        self.messagesTableView.reloadData()
+                        self.fetchChattingContacts()
+//                        self.messagesTableView.reloadData()
                     }
                 }
             }, withCancel: nil)
         }, withCancel: nil)
     }
 
+    
     func loadProfilePictureIfPresent(){
         initializeProfilePicturePicker()
-        
         let uid = Auth.auth().currentUser?.uid
         databaseRef.child("users").child(uid!).observeSingleEvent(of: .value, with: {(snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
@@ -120,7 +159,6 @@ class MessagesViewController: UIViewController {
                     }
                     self.profilePicture.image = UIImage(data: data as Data)
                 })
-                
             }
         })
     }
@@ -204,7 +242,6 @@ class MessagesViewController: UIViewController {
 
 
 extension MessagesViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let editedImage = info[.editedImage] as? UIImage{
             self.profilePicture.image = editedImage
@@ -240,9 +277,7 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
         if let chatId = chatId{
             let ref = databaseRef.child("users").child(chatId)
             ref.observe(.value, with: { (snapshot) in
-                
                 if let dictionary = snapshot.value as? [String: AnyObject]{
-                    
                     self.clickedTitle.id = chatId
                     self.clickedTitle.name = dictionary["name"] as? String
                     print(indexPath.row, ": ", dictionary["image"])
@@ -255,7 +290,8 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+        print(messageDetails.count,"count")
+        return messageDetails.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -263,48 +299,15 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
         {
             fatalError("The dequeued cell is not an instance of MessagesDisplayTableViewCell.")
         }
-        
-        let message = messages[indexPath.row]
-        
-        let chatId: String?
-        if message.fromId == Auth.auth().currentUser?.uid{
-            chatId = message.toId
+        print(indexPath.row)
+        print(messageDetails)
+        let msgDetails = messageDetails[indexPath.row]
+        cell.name.text = msgDetails.name
+        cell.msg.text = msgDetails.text
+        if (msgDetails.image != ""){
+            cell.dp.loadImageFromCache(urlString: msgDetails.image ?? "dps")
         }
-        else {
-            chatId = message.fromId
-        }
-        
-        if let chatId = chatId{
-            let ref = databaseRef.child("users").child(chatId)
-            ref.observe(.value, with: { (snapshot) in
-                
-                if let dictionary = snapshot.value as? [String: AnyObject]{
-                    
-                    cell.name.text = dictionary["name"] as? String
-                    self.nameArray.append(dictionary["name"] as? String ?? "Unknown")
-                    cell.msg.text = message.text
-                    if let seconds = message.timestamp?.doubleValue{
-                        let timeStampDate = Date(timeIntervalSince1970: seconds)
-                        let dateFormat = DateFormatter()
-                        dateFormat.dateFormat = "HH:mm:ss a"
-                        cell.timestamp.text = dateFormat.string(from: timeStampDate as Date)
-                        
-                    }
-                    
-                    if let imageUrl = dictionary["image"] as? String, imageUrl != ""{
-                        print(imageUrl, ":", indexPath.row)
-                        cell.dp.loadImageFromCache(urlString: imageUrl)
-                    }
-                   
-                
-                    
-                }
-                
-            }, withCancel: nil)
-        }
-        
+        cell.timestamp.text = msgDetails.time
         return cell
     }
-    
-    
 }

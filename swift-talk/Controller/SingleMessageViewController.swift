@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
-
+// entire FRIENDS list
 class SingleMessageViewController: UIViewController{
 
     var users = [User]()
@@ -26,7 +26,6 @@ class SingleMessageViewController: UIViewController{
     
     func fetchAllContacts(){
         Database.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
-           
             if let dictionary = snapshot.value as? [String: AnyObject]
             {
                 let user = User()

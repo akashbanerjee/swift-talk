@@ -7,7 +7,6 @@
 //
 //Model for Message Object
 import UIKit
-
 @objcMembers
 class Message: NSObject {
     var timestamp: NSNumber?
