@@ -19,6 +19,22 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupColors()
+        setupListenersOnTextFields()
+        self.hideKeyboardWhenTappedAround()
+
+    }
+    
+    @IBOutlet weak var email: UITextField!
+    @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var login: UIButton!
+    
+    func setupListenersOnTextFields(){
+        self.password.delegate = self
+        self.email.delegate = self
+    }
+    
+    func setupColors() {
         view.backgroundColor = UIColor(red: 61, green: 91, blue: 151)
         self.login.backgroundColor = UIColor(red: 80, green: 101, blue: 161)
         self.login.setTitleColor(UIColor.white, for: UIControl.State.normal)
@@ -31,26 +47,16 @@ class LoginViewController: UIViewController {
     @IBAction func backButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
- 
+
     @IBAction func loginButton(_ sender: Any) {
         guard let email = email.text, let password = password.text else { return }
+        
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error != nil {
-                print(error?.localizedDescription)
-                let alert = UIAlertController(title: "Alert", message: error?.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                    switch action.style{
-                    case .default:
-                        print("default")
-                    case .cancel:
-                        print("cancel")
-                    case .destructive:
-                        print("destructive")
-                    }}))
-                self.present(alert, animated: true, completion: nil)
+                self.addAlert(title: "Login Error", message: error?.localizedDescription ?? "")
                 return
             }
-            print("Logged in")
+            
             DispatchQueue.main.async {
             self.performSegue(withIdentifier: "messagesView", sender: self);
             }
@@ -58,7 +64,6 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func unwindFromLogout(segue: UIStoryboardSegue){
-        //unwind from major filter VC and set the new retrieved filtered major list
         if segue.source is MessagesViewController{
             do{
                 try Auth.auth().signOut()
@@ -68,4 +73,11 @@ class LoginViewController: UIViewController {
         }
     }
     
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
 }

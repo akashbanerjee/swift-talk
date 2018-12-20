@@ -9,31 +9,64 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
-// friends list
-class SingleMessageViewController: UIViewController ,UITableViewDelegate, UITableViewDataSource{
+
+class SingleMessageViewController: UIViewController{
 
     var users = [User]()
-//    var images = []()
     var clickedTitle = User()
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+  
+    override func viewDidLoad() {
+        self.tableView?.dataSource = self
+        self.tableView?.delegate = self
+        super.viewDidLoad()
+        tableView.register(SingleCell.self, forCellReuseIdentifier: "cell")
+        users.removeAll()
+        fetchAllContacts()
     }
-   
+    
+    func fetchAllContacts(){
+        Database.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
+           
+            if let dictionary = snapshot.value as? [String: AnyObject]
+            {
+                let user = User()
+                user.id = snapshot.key
+                user.setValuesForKeys(dictionary)
+                self.users.append(user)
+                
+                DispatchQueue.main.async {
+                    print(self.users.count)
+                    self.tableView.reloadData()
+                }
+            }
+        })
+    }
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "chatSegue"{
+            let chatVC = segue.destination as? ChatViewController
+            chatVC?.mainTitle = clickedTitle
+        }
+    }
+    @IBAction func unwindFromChat(segue: UIStoryboardSegue){
+        //unwind from major filter VC and set the new retrieved filtered major list
+        if segue.source is ChatViewController{
+            print("back")
+        }
+    }
+}
+
+extension SingleMessageViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = users[indexPath.row].name
         cell.detailTextLabel?.text = users[indexPath.row].email
-        // give image height width
-        // make it round
-        let imageView = UIImageView(frame: CGRect(x:0, y:0, width:10, height:20));
-       
         let placeholder = UIImage(named: "dps")
-        imageView.image = placeholder
-        cell.imageView?.image =  imageView.image
-       
+        cell.imageView?.image = placeholder
         if let imageUrl = users[indexPath.row].image, users[indexPath.row].image != ""{
             cell.imageView?.loadImageFromCache(urlString: imageUrl)
-         
         }
         cell.imageView?.layer.borderWidth = 3.0
         cell.imageView?.layer.masksToBounds = false
@@ -49,50 +82,10 @@ class SingleMessageViewController: UIViewController ,UITableViewDelegate, UITabl
         self.performSegue(withIdentifier: "chatSegue", sender: self)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "chatSegue"{
-            let chatVC = segue.destination as? ChatViewController
-            chatVC?.mainTitle = clickedTitle
-        }
-    }
-
-    override func viewDidLoad() {
-        
-        self.tableView?.dataSource = self
-        self.tableView?.delegate = self
-        super.viewDidLoad()
-        tableView.register(SingleCell.self, forCellReuseIdentifier: "cell")
-        users.removeAll()
-        fetchAllContacts()
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return users.count
     }
     
-    func fetchAllContacts(){
-        Database.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
-           
-            if let dictionary = snapshot.value as? [String: AnyObject]
-            {
-                
-                let user = User()
-                user.id = snapshot.key
-                user.setValuesForKeys(dictionary)
-                self.users.append(user)
-                
-                DispatchQueue.main.async {
-                    print(self.users.count)
-                    self.tableView.reloadData()
-                }
-            }
-        })
-    }
-    
-    @IBOutlet weak var tableView: UITableView!
-  
-    @IBAction func unwindFromChat(segue: UIStoryboardSegue){
-        //unwind from major filter VC and set the new retrieved filtered major list
-        if segue.source is ChatViewController{
-            print("back")
-        }
-    }
 }
 
 class SingleCell: UITableViewCell {
