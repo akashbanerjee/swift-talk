@@ -5,7 +5,6 @@
 //  Created by Akash Banerjee on 12/1/18.
 //  Copyright © 2018 SDSU. All rights reserved.
 //
-//Reference: https://medium.com/ios-os-x-development/ios-extend-uicolor-with-custom-colors-93366ae148e6
 
 import UIKit
 import Firebase
@@ -13,13 +12,7 @@ import FirebaseDatabase
 import FirebaseAuth
 
 class RegistrationViewController: UIViewController {
-    
-    @IBOutlet weak var name: UITextField!
-    @IBOutlet weak var password: UITextField!
-    @IBOutlet weak var email: UITextField!
-    @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var registerButton: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupColors()
@@ -50,7 +43,7 @@ class RegistrationViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
-
+    
     @IBAction func register(_ sender: Any) {
         
         guard let name = name.text, let password = password.text, let email = email.text else { return }

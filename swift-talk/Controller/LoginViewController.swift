@@ -13,10 +13,6 @@ import FirebaseAuth
 
 class LoginViewController: UIViewController {
 
-    @IBOutlet weak var password: UITextField!
-    @IBOutlet weak var email: UITextField!
-    @IBOutlet weak var login: UIButton!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupColors()
@@ -38,6 +34,7 @@ class LoginViewController: UIViewController {
         view.backgroundColor = UIColor(red: 61, green: 91, blue: 151)
         self.login.backgroundColor = UIColor(red: 80, green: 101, blue: 161)
         self.login.setTitleColor(UIColor.white, for: UIControl.State.normal)
+
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
@@ -47,7 +44,7 @@ class LoginViewController: UIViewController {
     @IBAction func backButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-
+    
     @IBAction func loginButton(_ sender: Any) {
         guard let email = email.text, let password = password.text else { return }
         

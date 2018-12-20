@@ -73,7 +73,6 @@
 		35A7CA0837921918A7C2F0DD /* Pods-swift-talkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swift-talkTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-swift-talkTests/Pods-swift-talkTests.debug.xcconfig"; sourceTree = "<group>"; };
 		556AB80E20B43EEC7B369D56 /* Pods-swift-talk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swift-talk.release.xcconfig"; path = "Pods/Target Support Files/Pods-swift-talk/Pods-swift-talk.release.xcconfig"; sourceTree = "<group>"; };
 		7D91F9B383E920338558D842 /* Pods_swift_talkTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_swift_talkTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		83390A6D21CA100B0072DB16 /* swift-talk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "swift-talk.entitlements"; sourceTree = "<group>"; };
 		A157ECD48D32A7D4C097EDB3 /* Pods-swift-talkUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swift-talkUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-swift-talkUITests/Pods-swift-talkUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D15300BE4DE994EA483F63E0 /* Pods_swift_talk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_swift_talk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5CE1F868C19880891182E6A /* Pods_swift_talkUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_swift_talkUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,7 +132,6 @@
 		120599F421B317F300D63273 /* swift-talk */ = {
 			isa = PBXGroup;
 			children = (
-				83390A6D21CA100B0072DB16 /* swift-talk.entitlements */,
 				1266A67C21C70FE300846400 /* Helpers */,
 				12A6673521C5F85300FE3C15 /* Model */,
 				12BA7E1F21B3425D0072B231 /* GoogleService-Info.plist */,
@@ -290,11 +288,6 @@
 				TargetAttributes = {
 					120599F121B317F300D63273 = {
 						CreatedOnToolsVersion = 10.1;
-						SystemCapabilities = {
-							com.apple.Push = {
-								enabled = 0;
-							};
-						};
 					};
 					12059A0521B317F500D63273 = {
 						CreatedOnToolsVersion = 10.1;
