@@ -98,7 +98,10 @@ class ChatViewController: UIViewController {
         setTitleAsNameOfReceiver()
         getChatHistory()
         messageBody.delegate = self
-        self.hideKeyboardWhenTappedAround()
+        //we tried hiding keyboard when tapped arround in this view but it got in the way of the send button
+        //that is, the view listened to the tap and hid the keyboard, but if we hit the send button when
+        //the keyboard is on, it just hid the keyboard and ignored the action call to the send button
+     //   self.hideKeyboardWhenTappedAround()
         
     }
  

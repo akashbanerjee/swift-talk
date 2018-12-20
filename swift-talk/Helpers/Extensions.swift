@@ -38,9 +38,7 @@ extension UIImageView {
                         imageCache.setObject(downloadedImage, forKey: urlString as AnyObject)
                         //set image in UIImageView
                         self.image = downloadedImage
-                        
                     }
-                    
                 }
                 }.resume()
         }
@@ -56,7 +54,7 @@ extension UIViewController{
         }))
         self.present(alert, animated: true, completion: nil)
     }
-    
+    //function to hide keyboard when tapped anywhere else on the screen
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
@@ -68,7 +66,6 @@ extension UIViewController{
     }
     
 }
-
 
 //Reference: https://medium.com/ios-os-x-development/ios-extend-uicolor-with-custom-colors-93366ae148e6
 extension UIColor {
