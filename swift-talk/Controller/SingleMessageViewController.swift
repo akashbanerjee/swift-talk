@@ -13,6 +13,7 @@ import FirebaseDatabase
 class SingleMessageViewController: UIViewController ,UITableViewDelegate, UITableViewDataSource{
 
     var users = [User]()
+//    var images = []()
     var clickedTitle = User()
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
@@ -22,11 +23,24 @@ class SingleMessageViewController: UIViewController ,UITableViewDelegate, UITabl
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = users[indexPath.row].name
         cell.detailTextLabel?.text = users[indexPath.row].email
-        let placeholder = UIImage(named: "icons8-user-50")
-        cell.imageView?.image = placeholder
+        // give image height width
+        // make it round
+        let imageView = UIImageView(frame: CGRect(x:0, y:0, width:10, height:20));
+       
+        let placeholder = UIImage(named: "dps")
+        imageView.image = placeholder
+        cell.imageView?.image =  imageView.image
+       
         if let imageUrl = users[indexPath.row].image, users[indexPath.row].image != ""{
             cell.imageView?.loadImageFromCache(urlString: imageUrl)
+         
         }
+        cell.imageView?.layer.borderWidth = 3.0
+        cell.imageView?.layer.masksToBounds = false
+        cell.imageView?.layer.borderColor = UIColor.white.cgColor
+        cell.imageView?.layer.cornerRadius = 10
+        cell.imageView?.clipsToBounds = true
+        cell.imageView?.sizeToFit()
         return cell
     }
     
@@ -103,4 +117,7 @@ class SingleCell: UITableViewCell {
         label.textColor = UIColor.lightGray
         return label
     }()
+    
+    
+   
 }

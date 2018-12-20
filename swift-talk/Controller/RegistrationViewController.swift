@@ -5,6 +5,7 @@
 //  Created by Akash Banerjee on 12/1/18.
 //  Copyright © 2018 SDSU. All rights reserved.
 //
+//Reference: https://medium.com/ios-os-x-development/ios-extend-uicolor-with-custom-colors-93366ae148e6
 
 import UIKit
 import Firebase
@@ -12,23 +13,26 @@ import FirebaseDatabase
 import FirebaseAuth
 
 class RegistrationViewController: UIViewController {
-
+    
+    @IBOutlet weak var name: UITextField!
+    @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var email: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var registerButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = UIColor(red: 61, green: 91, blue: 151)
         self.registerButton.backgroundColor = UIColor(red: 80, green: 101, blue: 161)
         self.registerButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
         self.loginButton.backgroundColor = UIColor(red: 80, green: 101, blue: 161)
         self.loginButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
-        
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
-    @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var registerButton: UIButton!
+  
     @IBAction func register(_ sender: Any) {
         guard let name = name.text, let password = password.text, let email = email.text else { return }
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
@@ -39,14 +43,10 @@ class RegistrationViewController: UIViewController {
                     switch action.style{
                     case .default:
                         print("default")
-                        
                     case .cancel:
                         print("cancel")
-                        
                     case .destructive:
                         print("destructive")
-                        
-                        
                     }}))
                 self.present(alert, animated: true, completion: nil)
                 return
@@ -66,14 +66,10 @@ class RegistrationViewController: UIViewController {
                         switch action.style{
                         case .default:
                             print("default")
-                            
                         case .cancel:
                             print("cancel")
-                            
                         case .destructive:
                             print("destructive")
-                            
-                            
                         }}))
                     self.present(alert, animated: true, completion: nil)
                     return
@@ -84,17 +80,9 @@ class RegistrationViewController: UIViewController {
                 DispatchQueue.main.async {
                 self.performSegue(withIdentifier: "messagesViewFromRegister", sender: self);
                 }
-                
             })
-            
         }
     }
-    
-    @IBOutlet weak var name: UITextField!
-    
-    @IBOutlet weak var password: UITextField!
-    
-    @IBOutlet weak var email: UITextField!
     
     @IBAction func unwindFromLogout(segue: UIStoryboardSegue){
         //unwind from major filter VC and set the new retrieved filtered major list
@@ -108,7 +96,7 @@ class RegistrationViewController: UIViewController {
     }
 }
 
-//Reference: https://medium.com/ios-os-x-development/ios-extend-uicolor-with-custom-colors-93366ae148e6
+
 extension UIColor {
     convenience init(red: Int, green: Int, blue: Int) {
         assert(red >= 0 && red <= 255, "Invalid red component")
