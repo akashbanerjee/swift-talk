@@ -14,22 +14,6 @@ import FirebaseStorage
 
 class MessagesViewController: UIViewController {
     
-    var user = User()
-    var clickedTitle = User()
-    var nameArray = [String]()
-    var messages = [Message]()
-    var messagesGroup = [String: Message]()
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "fromMessagesToChat"{
-            let chatVC = segue.destination as? ChatViewController
-            chatVC?.mainTitle = clickedTitle
-        }
-    }
-    
-    @IBOutlet weak var messagesTableView: UITableView!
-    let picker = UIImagePickerController()
-    
     override func viewDidLoad() {
         initializeMessageTable()
         super.viewDidLoad()
@@ -38,6 +22,18 @@ class MessagesViewController: UIViewController {
         
     }
     
+    var user = User()
+    var clickedTitle = User()
+    var nameArray = [String]()
+    var messages = [Message]()
+    var messagesGroup = [String: Message]()
+    let picker = UIImagePickerController()
+    let databaseRef = Database.database().reference()
+    
+    @IBOutlet weak var messagesTableView: UITableView!
+    @IBOutlet weak var profilePicture: UIImageView!
+    @IBOutlet weak var messageTitle: UINavigationItem!
+
     func setHeader() {
         setUserNameInHeader()
         loadProfilePictureIfPresent()
@@ -66,11 +62,12 @@ class MessagesViewController: UIViewController {
         cleanAllMessages()
         self.messagesTableView.reloadData()
         
+        
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        let ref = Database.database().reference().child("user-messages").child(uid)
+        let ref = databaseRef.child("user-messages").child(uid)
         ref.observe(.childAdded, with: { (snapshot) in
             let messageId = snapshot.key
-            let messagesRef = Database.database().reference().child("messages").child(messageId)
+            let messagesRef = self.databaseRef.child("messages").child(messageId)
             messagesRef.observeSingleEvent(of: .value, with: { (snapshot) in
                 if let dictionary = snapshot.value as? [String: AnyObject]
                 {
@@ -111,7 +108,7 @@ class MessagesViewController: UIViewController {
         initializeProfilePicturePicker()
         
         let uid = Auth.auth().currentUser?.uid
-    Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: {(snapshot) in
+        databaseRef.child("users").child(uid!).observeSingleEvent(of: .value, with: {(snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let image = dictionary["image"] as! String
                 if image.isEmpty{ return }
@@ -130,14 +127,20 @@ class MessagesViewController: UIViewController {
         })
     }
     
-    @IBOutlet weak var profilePicture: UIImageView!
-    @IBOutlet weak var messageTitle: UINavigationItem!
+
    
     @objc func changeProfilePicture(gesture: UIGestureRecognizer) {
         
         if (gesture.view as? UIImageView) != nil {
             print("Image Tapped")
             present(picker, animated: true, completion: nil)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "fromMessagesToChat"{
+            let chatVC = segue.destination as? ChatViewController
+            chatVC?.mainTitle = clickedTitle
         }
     }
     
@@ -150,7 +153,7 @@ class MessagesViewController: UIViewController {
     
     func setUserNameInHeader() {
         let uid = Auth.auth().currentUser?.uid
-        Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: {(snapshot) in
+        databaseRef.child("users").child(uid!).observeSingleEvent(of: .value, with: {(snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let name = dictionary["name"] as! String
                 print(name)
@@ -173,7 +176,7 @@ class MessagesViewController: UIViewController {
 
     func saveProfilePicture(){
         let uid = Auth.auth().currentUser?.uid
-        let child = Database.database().reference().child("users").child(uid!)
+        let child = databaseRef.child("users").child(uid!)
         let pictureReference = Storage.storage().reference().child("profileImages").child("\(uid!).jpg")
         if let profileImage = self.profilePicture.image, let uploadImage = profileImage.jpegData(compressionQuality: 0.1){
             pictureReference.putData(uploadImage, metadata: nil) { (metadata, error) in
@@ -246,7 +249,7 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         if let chatId = chatId{
-            let ref = Database.database().reference().child("users").child(chatId)
+            let ref = databaseRef.child("users").child(chatId)
             ref.observe(.value, with: { (snapshot) in
                 
                 if let dictionary = snapshot.value as? [String: AnyObject]{
@@ -278,7 +281,7 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         if let chatId = chatId{
-            let ref = Database.database().reference().child("users").child(chatId)
+            let ref = databaseRef.child("users").child(chatId)
             ref.observe(.value, with: { (snapshot) in
                 
                 if let dictionary = snapshot.value as? [String: AnyObject]{

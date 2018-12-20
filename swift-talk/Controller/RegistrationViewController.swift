@@ -15,23 +15,39 @@ class RegistrationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupColors()
+        setupListenersOnTextFields()
+        self.hideKeyboardWhenTappedAround()
+    }
+    
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var registerButton: UIButton!
+    @IBOutlet weak var name: UITextField!
+    @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var email: UITextField!
+    
+    func setupListenersOnTextFields(){
+        self.name.delegate = self
+        self.password.delegate = self
+        self.email.delegate = self
+    }
+    
+    func setupColors() {
         view.backgroundColor = UIColor(red: 61, green: 91, blue: 151)
         self.registerButton.backgroundColor = UIColor(red: 80, green: 101, blue: 161)
         self.registerButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
         self.loginButton.backgroundColor = UIColor(red: 80, green: 101, blue: 161)
         self.loginButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
-        
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
-    @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var registerButton: UIButton!
+    
     @IBAction func register(_ sender: Any) {
         
         guard let name = name.text, let password = password.text, let email = email.text else { return }
+        
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error != nil {
                 self.addAlert(title: "Registration Error", message: error?.localizedDescription ?? "")
@@ -47,22 +63,16 @@ class RegistrationViewController: UIViewController {
                 if error != nil {
                     self.addAlert(title: "Registration Error", message: error?.localizedDescription ?? "")
                     return
-                    
                 }
                 //user entered into database
                 DispatchQueue.main.async {
-                self.performSegue(withIdentifier: "messagesViewFromRegister", sender: self);
+                    self.performSegue(withIdentifier: "messagesViewFromRegister", sender: self);
                 }
             })
         }
     }
     
-    @IBOutlet weak var name: UITextField!
-    @IBOutlet weak var password: UITextField!
-    @IBOutlet weak var email: UITextField!
-    
     @IBAction func unwindFromLogout(segue: UIStoryboardSegue){
-        //unwind from major filter VC and set the new retrieved filtered major list
         if segue.source is MessagesViewController{
             do{
                 try Auth.auth().signOut()
@@ -70,6 +80,13 @@ class RegistrationViewController: UIViewController {
                 print(logoutException)
             }
         }
+    }
+}
+
+extension RegistrationViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
     }
 }
 
