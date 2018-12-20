@@ -33,6 +33,7 @@ extension UIImageView {
                 }
                 DispatchQueue.main.async {
                     if let downloadedImage = UIImage(data: data!){
+
                         //store image in nscache object
                         imageCache.setObject(downloadedImage, forKey: urlString as AnyObject)
                         //set image in UIImageView

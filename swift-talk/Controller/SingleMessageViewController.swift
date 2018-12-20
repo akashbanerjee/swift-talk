@@ -14,7 +14,7 @@ class SingleMessageViewController: UIViewController{
 
     var users = [User]()
     var clickedTitle = User()
-
+  
     override func viewDidLoad() {
         self.tableView?.dataSource = self
         self.tableView?.delegate = self
@@ -63,11 +63,17 @@ extension SingleMessageViewController: UITableViewDelegate, UITableViewDataSourc
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = users[indexPath.row].name
         cell.detailTextLabel?.text = users[indexPath.row].email
-        let placeholder = UIImage(named: "icons8-user-50")
+        let placeholder = UIImage(named: "dps")
         cell.imageView?.image = placeholder
         if let imageUrl = users[indexPath.row].image, users[indexPath.row].image != ""{
             cell.imageView?.loadImageFromCache(urlString: imageUrl)
         }
+        cell.imageView?.layer.borderWidth = 3.0
+        cell.imageView?.layer.masksToBounds = false
+        cell.imageView?.layer.borderColor = UIColor.white.cgColor
+        cell.imageView?.layer.cornerRadius = 10
+        cell.imageView?.clipsToBounds = true
+        cell.imageView?.sizeToFit()
         return cell
     }
     
@@ -104,4 +110,7 @@ class SingleCell: UITableViewCell {
         label.textColor = UIColor.lightGray
         return label
     }()
+    
+    
+   
 }

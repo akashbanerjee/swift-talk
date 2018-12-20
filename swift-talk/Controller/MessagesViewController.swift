@@ -19,7 +19,6 @@ class MessagesViewController: UIViewController {
         super.viewDidLoad()
         setHeader()
         checkUserMessages()
-        
     }
     
     var user = User()
@@ -58,11 +57,9 @@ class MessagesViewController: UIViewController {
     }
     
     func checkUserMessages() {
-        
         cleanAllMessages()
         self.messagesTableView.reloadData()
-        
-        
+         
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let ref = databaseRef.child("user-messages").child(uid)
         ref.observe(.childAdded, with: { (snapshot) in
@@ -98,12 +95,8 @@ class MessagesViewController: UIViewController {
                 }
             }, withCancel: nil)
         }, withCancel: nil)
-        
-        
     }
-   
 
-    
     func loadProfilePictureIfPresent(){
         initializeProfilePicturePicker()
         
@@ -126,11 +119,8 @@ class MessagesViewController: UIViewController {
             }
         })
     }
-    
-
    
     @objc func changeProfilePicture(gesture: UIGestureRecognizer) {
-        
         if (gesture.view as? UIImageView) != nil {
             print("Image Tapped")
             present(picker, animated: true, completion: nil)
@@ -158,11 +148,10 @@ class MessagesViewController: UIViewController {
                 let name = dictionary["name"] as! String
                 print(name)
                 self.messageTitle.title = name
-                
             }
         })
-        
     }
+    
     @IBAction func unwindFromNewMessage(segue: UIStoryboardSegue){
         //unwind from major filter VC and set the new retrieved filtered major list
         if segue.source is SingleMessageViewController{
@@ -201,16 +190,11 @@ class MessagesViewController: UIViewController {
                         }
                         //user entered into database
                         print("User updated image in database")
-                        
-                        
                     })
                 })
-              
             }
         }
-        
     }
-    
 }
 
 
@@ -295,7 +279,7 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
                         cell.timeLabel.text = dateFormat.string(from: timeStampDate as Date)
                         
                     }
-                    let placeholder = UIImage(named: "icons8-user-50")
+                    let placeholder = UIImage(named: "dps")
                     cell.imageView?.image = placeholder
                     if let imageUrl = dictionary["image"], imageUrl as! String != ""{
                         
@@ -303,6 +287,11 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
                         
                         
                     }
+                    cell.imageView?.layer.borderWidth = 3.0
+                    cell.imageView?.layer.masksToBounds = false
+                    cell.imageView?.layer.borderColor = UIColor.white.cgColor
+                    cell.imageView?.layer.cornerRadius = 25
+                    cell.imageView?.clipsToBounds = true
                     
                 }
                 
