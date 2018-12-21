@@ -265,7 +265,7 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         let message = messages[indexPath.row]
-        
+        print(messages)
         let chatId: String?
         if message.fromId == Auth.auth().currentUser?.uid{
             chatId = message.toId
@@ -290,7 +290,7 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
                         cell.timestamp.text = dateFormat.string(from: timeStampDate as Date)
                         
                     }
-                    
+                    cell.dp.image = UIImage(named: "dps")
                     if let imageUrl = dictionary["image"] as? String, imageUrl != ""{
                         print(imageUrl, ":", indexPath.row)
                         cell.dp.loadImageFromCache(urlString: imageUrl)
